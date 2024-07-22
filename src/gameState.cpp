@@ -3,7 +3,7 @@
 #include <cstring>
 
 GameState::GameState() : display(*this) {
-    this->lives = 6;
+    this->lives = 8;
     this->initializeWordList();
     this->word = this->getRandomWord();
     this->wordSize = this->word.size();

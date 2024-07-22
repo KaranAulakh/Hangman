@@ -9,6 +9,22 @@ GameDisplay::GameDisplay(const GameState& gameState) : gameState(gameState) {}
 
 void GameDisplay::displayGame() const {
     static const std::vector<std::string> hangmanLogos = {
+        "       +\n"
+        "       |\n"
+        "       |\n"
+        "       |\n"
+        "       |\n"
+        "       |\n"
+        "=========\n",
+
+        "   +---+\n"
+        "       |\n"
+        "       |\n"
+        "       |\n"
+        "       |\n"
+        "       |\n"
+        "=========\n",
+
         "   +---+\n"
         "   |   |\n"
         "       |\n"
@@ -67,7 +83,7 @@ void GameDisplay::displayGame() const {
     };
 
     // Determine which stage to display
-    int stage = 6 - gameState.getLives();
+    int stage = 8 - gameState.getLives();
     std::cout << "\n" << hangmanLogos[stage] << "\n";
     std::cout << "Lives remaining: " << gameState.getLives() << "\n";
     std::cout << "Word: ";
