@@ -2,7 +2,13 @@
 #include <iostream>
 #include <unordered_set>
 
-int main() {
+void displayMenu() {
+    std::cout << "Menu:\n";
+    std::cout << "1. Press Enter to play\n";
+    std::cout << "2. Press 'x' to quit\n";
+}
+
+void playGame() {
     GameState game;
     std::unordered_set<char> guessedChars;
 
@@ -29,6 +35,23 @@ int main() {
         if (game.getLives() < 1) {
             std::cout << "Game Over\n\n\n\n";
             break;
+        }
+    }
+}
+
+int main() {
+    std::string choice;
+    while (true) {
+        displayMenu();
+        std::getline(std::cin, choice);
+
+        if (choice == "x" || choice == "X") {
+            std::cout << "Thanks for hanging around!" << std::endl;
+            break;
+        } else if (choice.empty()) {
+            playGame();
+        } else {
+            std::cout << "Invalid option, please try again.\n";
         }
     }
 
