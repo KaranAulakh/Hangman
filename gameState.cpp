@@ -6,6 +6,8 @@
 GameState::GameState() {
     this->lives = 6;
     this->word = this->createWord();
+    this->wordSize = strlen(this->word);
+    this->guessedChars = 0;
     this->wordState = this->createWordState(this->word);
 }
 
@@ -145,13 +147,13 @@ char GameState::promptUserForInput() {
 
         // Check if the input stream is in a failed state
         if (std::cin.fail()) {
-            std::cin.clear(); // Clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Invalid input. Please enter a single character." << std::endl;
         } else {
             // Check if there are more characters left in the input buffer
             if (std::cin.get() != '\n') {
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard remaining input
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout << "You entered more than one character. Please enter a single character." << std::endl;
             } else {
                 break; 
@@ -161,18 +163,35 @@ char GameState::promptUserForInput() {
     return guess;
 }
 
-void GameState::playChar(char guess) {
+bool GameState::playChar(char guess) {
     bool validGuess = false;
     for (int i = 0; i < this->wordState.size(); i++) {
         if (this->word[i] == guess) {
             this->wordState[i] = guess;
+            this->guessedChars++;
             validGuess = true;
         }
     }
 
+    GameState::clearTerminal();
     if (!validGuess) {
+        std::cout << "Sorry '" << guess << "' is incorrect\n\n\n\n";
         GameState::decreaseLife();
+    } else {
+        std::cout << "Great Guess\n\n\n\n";
     }
+
+    if (this->guessedChars == this->wordSize) {
+        return true;
+    }
+    return false;
 }
 
+void GameState::clearTerminal(){
+    #ifdef _WIN32
+        std::system("cls");  // Clear the terminal screen on Windows
+    #else
+        std::system("clear");  // Clear the terminal screen on Unix-like systems
+    #endif
+}
 

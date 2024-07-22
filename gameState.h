@@ -7,6 +7,8 @@ class GameState {
     private:
         const char* word;
         std::string wordState;
+        int guessedChars;
+        int wordSize;
         int lives;
 
         static const char* createWord();
@@ -35,7 +37,8 @@ class GameState {
         // Logic Methods
         void displayGame();
         char promptUserForInput();
-        void playChar(char guess);
+        bool playChar(char guess);
+        void clearTerminal();
 };
 
 #endif
