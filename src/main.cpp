@@ -20,6 +20,13 @@ void playGame() {
         bool validGuess = false;
         char guess = '\0';
         while (!validGuess) {
+            // print previous guesses
+            std::cout << "Guessed Characters: ";
+            for (char c : guessedChars) {
+                std::cout << c << ' ';
+            }
+            std::cout << std::endl;
+
             guess = game.display.promptUserForInput();
             if (guessedChars.find(guess) != guessedChars.end()) {
                 std::cout << "'" << guess << "' has already been guessed" << std::endl;
