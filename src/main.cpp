@@ -1,6 +1,7 @@
 #include "gameState.h"
 #include <iostream>
 #include <unordered_set>
+#include <set>
 
 void displayMenu() {
     std::cout << "Menu:\n";
@@ -10,7 +11,8 @@ void displayMenu() {
 
 void playGame() {
     GameState game;
-    std::unordered_set<char> guessedChars;
+    std::set<char> guessedChars;
+    const std::unordered_set<char> alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
     game.display.clearTerminal();
     while (true) {
@@ -27,10 +29,13 @@ void playGame() {
             }
             std::cout << std::endl;
 
-            guess = game.display.promptUserForInput();
+            guess = std::tolower(game.display.promptUserForInput());
             if (guessedChars.find(guess) != guessedChars.end()) {
                 std::cout << "'" << guess << "' has already been guessed" << std::endl;
-            } else {
+            } else if (alphabet.find(guess) == alphabet.end()){
+                std::cout << "'" << guess << "' is not a valid letter" << std::endl;
+            } 
+            else {
                 validGuess = true;
             }
         }
