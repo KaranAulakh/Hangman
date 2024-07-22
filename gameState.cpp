@@ -2,11 +2,27 @@
 #include <iostream>
 #include <cstring>
 
-GameState::GameState()
-    : lives(6), word(createWord()), wordSize(word.size()), guessedChars(0), wordState(createWordState(word)), display(*this) {}
+GameState::GameState() : display(*this) {
+    this->lives = 6;
+    this->initializeWordList();
+    this->word = this->getRandomWord();
+    this->wordSize = this->word.size();
+    this->guessedChars = 0;
+    this->wordState = this->createWordState(this->word);
+}
 
-std::string GameState::createWord() {
-    return "cat";
+void GameState::initializeWordList() {
+    wordList = loadWordList("words.txt");
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+}
+
+std::string GameState::getRandomWord() {
+    if (wordList.empty()) {
+        std::cerr << "Word list is empty!" << std::endl;
+        return "default";
+    }
+    int randomIndex = std::rand() % wordList.size();
+    return wordList[randomIndex];
 }
 
 std::string GameState::createWordState(const std::string& word) {

@@ -3,7 +3,8 @@
 
 #include <string>
 #include <unordered_set>
-#include "gameDisplay.h"  // Include the GameDisplay header
+#include "gameDisplay.h"
+#include "wordList.h"
 
 class GameState {
 private:
@@ -12,8 +13,10 @@ private:
     int guessedChars;
     int wordSize;
     int lives;
+    std::vector<std::string> wordList;
 
-    std::string createWord();
+    void initializeWordList();
+    std::string getRandomWord();
     std::string createWordState(const std::string& word);
 
 public:
