@@ -2,9 +2,14 @@
 #include <iostream>
 #include <cstring>
 
-GameState::GameState() : display(*this) {
+// Constructor definition
+GameState::GameState()
+    : guessedChars(),
+      alphabet({'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}),
+      display(*this) // Ensure display is initialized after guessedChars and alphabet
+{
     this->lives = 8;
-    this->initializeWordList();
+    this->initializeWordList(); 
     this->word = this->getRandomWord();
     this->wordSize = this->word.size();
     this->incorrectGuessedChars = 0;
@@ -32,9 +37,28 @@ std::string GameState::createWordState(const std::string& word) {
     return std::string(word.size(), '_');
 }
 
+char GameState::getValidGuess() {
+    bool validGuess = false;
+    char guess = '\0';
+    while (!validGuess) {
+        guess = std::tolower(display.promptUserForInput());
+        if (guessedChars.find(guess) != guessedChars.end()) {
+            std::cout << "'" << guess << "' has already been guessed" << std::endl;
+        } else if (this->alphabet.find(guess) == this->alphabet.end()){
+            std::cout << "'" << guess << "' is not a valid letter" << std::endl;
+        } 
+        else {
+            validGuess = true;
+        }
+    }
+
+    return guess;
+}
+
 // plays a players guessed char and updates all game variables accordingly
 // retun true if game is lost
 bool GameState::playChar(char guess) {
+    guessedChars.insert(guess);
     bool validGuess = false;
     for (size_t i = 0; i < wordSize; ++i) {
         if (word[i] == guess) {
@@ -72,4 +96,8 @@ void GameState::decreaseLife() {
 
 std::string GameState::getWordState() const {
     return wordState;
+}
+
+std::set<char> GameState::getGuessedChars() const {
+    return this->guessedChars;
 }

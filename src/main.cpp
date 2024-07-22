@@ -1,7 +1,6 @@
 #include "gameState.h"
 #include <iostream>
 #include <unordered_set>
-#include <set>
 
 // Displays menu in between game rounds
 void displayMenu() {
@@ -14,34 +13,12 @@ void displayMenu() {
 void playGame() {
     GameState game;
     std::set<char> guessedChars;
-    const std::unordered_set<char> alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
     game.display.clearTerminal();
     while (true) {
         game.display.displayGame();
 
-        // Get valid input
-        bool validGuess = false;
-        char guess = '\0';
-        while (!validGuess) {
-            // print previous guesses
-            std::cout << "Guessed Characters: ";
-            for (char c : guessedChars) {
-                std::cout << c << ' ';
-            }
-            std::cout << std::endl;
-
-            guess = std::tolower(game.display.promptUserForInput());
-            if (guessedChars.find(guess) != guessedChars.end()) {
-                std::cout << "'" << guess << "' has already been guessed" << std::endl;
-            } else if (alphabet.find(guess) == alphabet.end()){
-                std::cout << "'" << guess << "' is not a valid letter" << std::endl;
-            } 
-            else {
-                validGuess = true;
-            }
-        }
-        guessedChars.insert(guess);
+        char guess = game.getValidGuess();
         if (game.playChar(guess)) {
             std::cout << "Congrats!\n\n\n\n";
             break;

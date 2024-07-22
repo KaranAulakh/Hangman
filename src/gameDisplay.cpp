@@ -90,7 +90,12 @@ void GameDisplay::displayGame() const {
     for (char c : gameState.getWordState()) {
         std::cout << c << ' ';
     }
-    std::cout << "\n";
+
+    std::cout << "\nGuessed Characters: ";
+    for (char c : gameState.getGuessedChars()) {
+        std::cout << c << ' ';
+    }
+    std::cout << std::endl;
 }
 
 char GameDisplay::promptUserForInput() const {
