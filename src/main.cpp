@@ -33,7 +33,7 @@ void playGame() {
             break;
         }
         if (game.getLives() < 1) {
-            std::cout << "Game Over\n\n\n\n";
+            std::cout << "Game Over\nCorrect word was: " << game.getWord() << "\n\n\n\n";
             break;
         }
     }

@@ -22,6 +22,7 @@ private:
 public:
     GameState();
     int getLives() const;
+    std::string getWord() const;
     void decreaseLife();
     std::string getWordState() const;
     bool playChar(char guess);

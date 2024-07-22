@@ -54,6 +54,10 @@ int GameState::getLives() const {
     return lives;
 }
 
+std::string GameState::getWord() const {
+    return this->word;
+}
+
 void GameState::decreaseLife() {
     --lives;
 }
