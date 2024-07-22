@@ -24,6 +24,7 @@ private:
 
 public:
     GameState();
+    void start();
     int getLives() const;
     std::string getWord() const;
     std::string getWordState() const;

@@ -2,46 +2,45 @@
 #include <iostream>
 #include <unordered_set>
 
-// Displays menu in between game rounds
-void displayMenu() {
-    std::cout << "Menu:\n";
-    std::cout << "1. Press Enter to play\n";
-    std::cout << "2. Press 'x' to quit\n";
-}
-
 // Plays one round of hangman with a random word
-void playGame() {
-    GameState game;
-    std::set<char> guessedChars;
-
-    game.display.clearTerminal();
+void playGame(GameState &game) {
+    game.start();
     while (true) {
         game.display.displayGame();
-
         char guess = game.getValidGuess();
+
+        // Handle wining the game
         if (game.playChar(guess)) {
             std::cout << "Congrats!\n\n\n\n";
             break;
         }
+
+        // Handle losing the game
         if (game.getLives() < 1) {
             std::cout << "Game Over\nCorrect word was: " << game.getWord() << "\n\n\n\n";
             break;
         }
     }
+
+    return;
 }
 
-// Main method, controls navigating menu and gameplay
+// main method: controls navigating menu and gameplay
 int main() {
+    GameState game;
+    game.display.clearTerminal();
+    std::cout << "Welcome to Hangman!\n";
     std::string choice;
     while (true) {
-        displayMenu();
+        std::cout << "Press ENTER to play or x to quit: ";
         std::getline(std::cin, choice);
 
         if (choice == "x" || choice == "X") {
-            std::cout << "Thanks for hanging around!" << std::endl;
+            std::cout << "Thanks for hanging around!\n\n";
             break;
         } else if (choice.empty()) {
-            playGame();
+            game.display.clearTerminal();
+            playGame(game);
         } else {
             std::cout << "Invalid option, please try again.\n";
         }

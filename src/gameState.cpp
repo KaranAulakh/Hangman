@@ -7,15 +7,17 @@ GameState::GameState()
     : guessedChars(),
       alphabet({'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}),
       display(*this) // Ensure display is initialized after guessedChars and alphabet
-{
+{}
+
+void GameState::start(){
     this->lives = 8;
     this->initializeWordList(); 
     this->word = this->getRandomWord();
     this->wordSize = this->word.size();
     this->incorrectGuessedChars = 0;
     this->wordState = this->createWordState(this->word);
+    this->guessedChars.clear();
 }
-
 // Loads words.txt at the start of the round
 void GameState::initializeWordList() {
     wordList = loadWordList("words.txt");
@@ -91,7 +93,7 @@ std::string GameState::getWord() const {
 }
 
 void GameState::decreaseLife() {
-    --lives;
+    lives--;
 }
 
 std::string GameState::getWordState() const {
