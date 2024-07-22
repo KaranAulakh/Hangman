@@ -2,43 +2,31 @@
 #define GAMESTATE_H
 
 #include <string>
+#include <unordered_set>
+#include "gameDisplay.h"  // Include the GameDisplay header
 
 class GameState {
-    private:
-        const char* word;
-        std::string wordState;
-        int guessedChars;
-        int wordSize;
-        int lives;
+private:
+    std::string word;
+    std::string wordState;
+    int guessedChars;
+    int wordSize;
+    int lives;
 
-        static const char* createWord();
-        std::string createWordState(const char* word);
+    std::string createWord();
+    std::string createWordState(const std::string& word);
 
-    public:
-        // Enum to represent different hangman stages by remaining lives
-        enum HangmanStageByLives {
-            ZERO,    // No hangman figure
-            ONE,     // Head
-            TWO,     // Head and Body
-            THREE,   // Head, Body, and One Arm
-            FOUR,    // Head, Body, Both Arms
-            FIVE,    // Head, Body, Both Arms, One Leg
-            SIX     // Full Hangman
-        };
+public:
+    GameState();
+    int getLives() const;
+    void decreaseLife();
+    std::string getWordState() const;
+    bool playChar(char guess);
 
-        // Constructor
-        GameState();
+    void clearTerminal() const; // This might be removed if GameDisplay handles it
 
-        // Setters and Getters
-        int getLives();
-        void decreaseLife();
-        std::string getWordState();
-
-        // Logic Methods
-        void displayGame();
-        char promptUserForInput();
-        bool playChar(char guess);
-        void clearTerminal();
+    // Add a GameDisplay instance
+    GameDisplay display;
 };
 
 #endif

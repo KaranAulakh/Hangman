@@ -6,33 +6,31 @@ int main() {
     GameState game;
     std::unordered_set<char> guessedChars;
 
-
-    game.clearTerminal();
+    game.display.clearTerminal();
     while (true) {
-        game.displayGame();
+        game.display.displayGame();
 
         // Get valid input
         bool validGuess = false;
         char guess = '\0';
-        while(!validGuess){
-          guess = game.promptUserForInput();
-          if (guessedChars.find(guess) != guessedChars.end()) {
-            std::cout << "'" << guess << "' has already been guessed" << std::endl;
-          } else {
-            validGuess = true;
-          }
+        while (!validGuess) {
+            guess = game.display.promptUserForInput();
+            if (guessedChars.find(guess) != guessedChars.end()) {
+                std::cout << "'" << guess << "' has already been guessed" << std::endl;
+            } else {
+                validGuess = true;
+            }
         }
         guessedChars.insert(guess);
-        if(game.playChar(guess)){
-          std::cout << "Congrats!\n\n\n\n";
-          break;
+        if (game.playChar(guess)) {
+            std::cout << "Congrats!\n\n\n\n";
+            break;
         }
-        if(game.getLives() < 1){
-          std::cout << "Game Over\n\n\n\n";
-          break;
+        if (game.getLives() < 1) {
+            std::cout << "Game Over\n\n\n\n";
+            break;
         }
     }
 
-    // Cleanup memory
     return 0;
 }

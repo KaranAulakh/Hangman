@@ -8,7 +8,7 @@ CXXFLAGS = -std=c++17 -Wall
 TARGET = hangman
 
 # Source files
-SRCS = main.cpp gameState.cpp
+SRCS = main.cpp gameState.cpp gameDisplay.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
