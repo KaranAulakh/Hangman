@@ -3,12 +3,14 @@
 #include <unordered_set>
 #include <set>
 
+// Displays menu in between game rounds
 void displayMenu() {
     std::cout << "Menu:\n";
     std::cout << "1. Press Enter to play\n";
     std::cout << "2. Press 'x' to quit\n";
 }
 
+// Plays one round of hangman with a random word
 void playGame() {
     GameState game;
     std::set<char> guessedChars;
@@ -51,6 +53,7 @@ void playGame() {
     }
 }
 
+// Main method, controls navigating menu and gameplay
 int main() {
     std::string choice;
     while (true) {

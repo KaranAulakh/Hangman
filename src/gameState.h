@@ -10,7 +10,7 @@ class GameState {
 private:
     std::string word;
     std::string wordState;
-    int guessedChars;
+    int incorrectGuessedChars;
     int wordSize;
     int lives;
     std::vector<std::string> wordList;
