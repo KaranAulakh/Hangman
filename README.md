@@ -1,7 +1,7 @@
 
 Hangman Game in C++
 
-Welcome to the Hangman Game! 🎉 This is a fun little weekend project that I've put together using C++. The game is a classic word-guessing game where you try to guess the hidden word before running out of lives.
+Welcome to the Hangman Game! This is a fun little weekend project that I've put together using C++. The game is a classic word-guessing game where you try to guess the hidden word before running out of lives.
 
 Playing the Game:
 1. git clone https://github.com/KaranAulakh/Hangman.git 
